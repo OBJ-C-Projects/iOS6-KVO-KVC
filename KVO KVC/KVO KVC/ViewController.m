@@ -15,6 +15,7 @@
 @interface ViewController ()
 
 @property (nonatomic) LSIHRController *hrController;
+@property (nonatomic) LSIIRS *irs;
 
 @end
 
@@ -81,31 +82,42 @@
     NSLog(@"%@" , [self.hrController valueForKeyPath:@"departments.@distinctUnionOfArrays.employees"]);
 
     
-    LSIIRS *irs = [[LSIIRS alloc] init];
+    self.irs = [[LSIIRS alloc] init];
     
-    [irs startMonitoringEmployee:e3];
+    [self.irs startMonitoringEmployee:e3];
     
 }
 
 - (IBAction)printHighestSalaryPressed:(id)sender {
 
     NSLog(@"Highest Salary: %li", self.hrController.highestSalary);
-
+    self.irs = nil;
 }
 
 - (IBAction)giveJoeARaisePressed:(id)sender {
     
     // Find Joe
     // Give him a raise (passing by reference)
-    NSArray *allEmployees = self.hrController.allEmployees; //
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", @"Joe"];
-//    NSArray *allJoes = [allEmployees filteredArrayUsingPredicate:predicate];
-    LSIEmployee *joe = [allEmployees filteredArrayUsingPredicate:predicate].firstObject;
-//    joe.salary
+    LSIEmployee *joe = [self findEmployeeNamed:@"Joe"];
     
 //    [joe setValue:@(joe.salary + 25000) forKey:@"salary"];
     joe.salary = joe.salary + 25000;
     NSLog(@"Joe: %@", joe);
+}
+
+- (LSIEmployee *)findEmployeeNamed:(NSString *)name {
+    NSArray *allEmployees = self.hrController.allEmployees; //
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    //    NSArray *allJoes = [allEmployees filteredArrayUsingPredicate:predicate];
+    LSIEmployee *employee = [allEmployees filteredArrayUsingPredicate:predicate].firstObject;
+    return employee;
+}
+
+- (IBAction)makeJoeCEOPressed:(id)sender {
+    
+    LSIEmployee *joe = [self findEmployeeNamed:@"Joe"];
+    
+    [joe setJobTitle:@"CEO"];
 }
 
 @end
