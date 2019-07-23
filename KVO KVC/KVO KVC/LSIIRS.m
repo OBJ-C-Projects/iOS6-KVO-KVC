@@ -47,7 +47,6 @@ void *KVOContext = &KVOContext; // 233493938383939 ... 0xADF03834A
 {
     if (context == KVOContext) {    // Only give me notifications for what I have requested
         
-        
 //        if ([keyPath isEqualToString:@"salary"]) {
         if ([keyPath isEqualToString:NSStringFromSelector(@selector(salary))]) {
             NSLog(@"IRS sees a pay increase for %@'s salary to: %@", [object name], [object valueForKeyPath:keyPath]);
@@ -55,9 +54,6 @@ void *KVOContext = &KVOContext; // 233493938383939 ... 0xADF03834A
         } else if([keyPath isEqualToString:@"jobTitle"]) {
             NSLog(@"IRS: %@ changed their job to: %@", [object name], [object valueForKeyPath:keyPath]);
         }
-        
-        
-        
         
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
