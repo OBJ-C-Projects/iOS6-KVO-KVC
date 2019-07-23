@@ -10,7 +10,7 @@
 #import "LSIDepartment.h"
 #import "LSIEmployee.h"
 #import "LSIHRController.h"
-
+#import "LSIIRS.h"
 
 @interface ViewController ()
 
@@ -80,14 +80,32 @@
     // Remove any dupilicates (Set)
     NSLog(@"%@" , [self.hrController valueForKeyPath:@"departments.@distinctUnionOfArrays.employees"]);
 
+    
+    LSIIRS *irs = [[LSIIRS alloc] init];
+    
+    [irs startMonitoringEmployee:e3];
+    
 }
 
 - (IBAction)printHighestSalaryPressed:(id)sender {
 
+    NSLog(@"Highest Salary: %li", self.hrController.highestSalary);
 
 }
 
 - (IBAction)giveJoeARaisePressed:(id)sender {
+    
+    // Find Joe
+    // Give him a raise (passing by reference)
+    NSArray *allEmployees = self.hrController.allEmployees; //
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", @"Joe"];
+//    NSArray *allJoes = [allEmployees filteredArrayUsingPredicate:predicate];
+    LSIEmployee *joe = [allEmployees filteredArrayUsingPredicate:predicate].firstObject;
+//    joe.salary
+    
+//    [joe setValue:@(joe.salary + 25000) forKey:@"salary"];
+    joe.salary = joe.salary + 25000;
+    NSLog(@"Joe: %@", joe);
 }
 
 @end

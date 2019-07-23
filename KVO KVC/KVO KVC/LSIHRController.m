@@ -8,6 +8,7 @@
 
 #import "LSIHRController.h"
 #import "LSIDepartment.h"
+#import "LSIEmployee.h"
 
 @interface LSIHRController ()
 
@@ -54,17 +55,31 @@
 //    }
 //    return employees;
     
-    NSString *departmentsKeyPath = NSStringFromSelector(@selector(departments));
-    NSLog(@"departmentsKeyPath: %@", departmentsKeyPath);
+//    NSString *departmentsKeyPath = NSStringFromSelector(@selector(departments));
+//    NSLog(@"departmentsKeyPath: %@", departmentsKeyPath);
     return [self valueForKeyPath:@"departments.@unionOfArrays.employees"];
 }
 
 
+//- (NSInteger)highestSalary {
+//
+//    // loop over all the employees, find the highest, then return their salary
+//    LSIEmployee *highestPaid = nil;
+//
+//    for (LSIEmployee *employee in self.allEmployees) {
+//        if (employee.salary > highestPaid.salary) {
+//            highestPaid = employee;
+//        }
+//    }
+//
+//    return highestPaid.salary;
+//}
+
 - (NSInteger)highestSalary {
-    
-    
-    
-    return -1;
+//    return [[self.allEmployees valueForKeyPath:@"@max.salary"] integerValue];
+    return [[self.allEmployees valueForKeyPath:@"@avg.salary"] integerValue];
+
 }
+
 
 @end
