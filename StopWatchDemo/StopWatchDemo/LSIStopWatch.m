@@ -55,7 +55,12 @@
 
 - (void)timerDidFire:(NSTimer *)timer;
 {
-    self.elapsedTime = [[NSDate date] timeIntervalSinceDate:self.startDate] + self.previousElapsedTime;
+    // always use properties to access/modify values so you don't break KVO
+//    self.elapsedTime = [[NSDate date] timeIntervalSinceDate:self.startDate] + self.previousElapsedTime;
+    
+    // NOT KVC Compliant because we aren't calling the property setter/getter
+    // This breaks KVO
+    _elapsedTime = [[NSDate date] timeIntervalSinceDate:self.startDate] + self.previousElapsedTime;
 }
 
 
