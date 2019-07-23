@@ -47,4 +47,24 @@
 }
 
 
+- (NSArray *)allEmployees {
+//    NSMutableArray *employees = [[NSMutableArray alloc] init];
+//    for (LSIDepartment *department in self.departments) {
+//        [employees addObjectsFromArray:department.employees];
+//    }
+//    return employees;
+    
+    NSString *departmentsKeyPath = NSStringFromSelector(@selector(departments));
+    NSLog(@"departmentsKeyPath: %@", departmentsKeyPath);
+    return [self valueForKeyPath:@"departments.@unionOfArrays.employees"];
+}
+
+
+- (NSInteger)highestSalary {
+    
+    
+    
+    return -1;
+}
+
 @end

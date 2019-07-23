@@ -67,8 +67,27 @@
     
     NSLog(@"%@", self.hrController);
     
+    NSLog(@"All Employees: %@", controller.allEmployees);
     
+    
+//     self.hrController.departments
+    NSLog(@"%@" , [self.hrController valueForKeyPath:@"departments"]);
+    
+    NSLog(@"%@" , [self.hrController valueForKeyPath:@"departments.employees"]);
+
+    NSLog(@"%@" , [self.hrController valueForKeyPath:@"departments.@unionOfArrays.employees"]);
+    
+    // Remove any dupilicates (Set)
+    NSLog(@"%@" , [self.hrController valueForKeyPath:@"departments.@distinctUnionOfArrays.employees"]);
+
 }
 
+- (IBAction)printHighestSalaryPressed:(id)sender {
+
+
+}
+
+- (IBAction)giveJoeARaisePressed:(id)sender {
+}
 
 @end
